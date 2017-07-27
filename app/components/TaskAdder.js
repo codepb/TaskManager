@@ -1,14 +1,45 @@
-// @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import styles from './TaskAdder.css';
+import * as TaskActions from '../actions/Task';
 
-export default class TaskAdder extends Component {
+class TaskAdder extends Component {
+  props: {
+    addTask: (task: string) => void
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = { value: '' };
+  }
+
+  handleChange = (event) => {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.addTask(this.state.value);
+    this.setState({ value: '' });
+  }
+
   render() {
     return (
-      <div>
-        <input type="text" className={styles.taskInput} placeholder="Input Task" data-tid="taskInput" />
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" className={styles.taskInput} placeholder="Input Task" value={this.state.value} onChange={this.handleChange} />
+      </form>
     );
   }
 }
+
+function mapStateToProps() {
+  return {
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(TaskActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskAdder);
