@@ -15,10 +15,16 @@ type addTaskActionType = actionType & {
 
 type allowedActionTypes = actionType | addTaskActionType;
 
-export default function task(state: string[] = [], action: allowedActionTypes) {
+const allowedKeyBindings = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+export default function task(state: Task[] = [], action: allowedActionTypes) {
   switch (action.type) {
     case ADD_TASK:
-      return [...state, new Task({ keyBinding: 1, task: action.task })];
+      var keyBinding = allowedKeyBindings.filter(i => !state.map(s => s.keyBinding).includes(i))[0]
+      if(typeof keyBinding !== "undefined"){
+        return [...state, new Task({ keyBinding: keyBinding, task: action.task })];
+      }
+      return state;
     case CLEAR_TASKS:
       return [];
     default:
