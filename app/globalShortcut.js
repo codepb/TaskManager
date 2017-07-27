@@ -1,5 +1,6 @@
 // @flow
 import { app, BrowserWindow, globalShortcut } from 'electron';
+import { electronLocalshortcut } from 'electron-localshortcut';
 
 export default class GlobalShortcutRegister {
   mainWindow: BrowserWindow;
@@ -20,6 +21,10 @@ export default class GlobalShortcutRegister {
 
     // Check whether a shortcut is registered.
     console.log(globalShortcut.isRegistered('CommandOrControl+Shift+0'));
+
+    electronLocalshortcut.register('CommandOrControl+1', () => {
+      console.log('You pressed 1');
+    });
 
     app.on('will-quit', () => {
       // Unregister all shortcuts.
