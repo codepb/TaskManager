@@ -184,6 +184,7 @@
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
     "electron-localshortcut": "^2.0.2",
+    "electron-rpc": "^2.0.1",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
     "react": "^15.6.1",
@@ -195,7 +196,8 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
-    "source-map-support": "^0.4.15"
+    "source-map-support": "^0.4.15",
+    "uuid": "^3.1.0"
   },
   "devEngines": {
     "node": ">=7.x",

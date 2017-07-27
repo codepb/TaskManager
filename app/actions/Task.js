@@ -1,11 +1,24 @@
+import uuidv4 from 'uuid/v4';
+
 export const ADD_TASK = 'ADD_TASK';
+export const START_TASK = 'START_TASK';
 export const CLEAR_TASKS = 'CLEAR_TASKS';
 
 export function addTask(task: string) {
   return {
     type: ADD_TASK,
     task,
-    id: CreateGuid()
+    id: CreateGuid(),
+    Running: false,
+    StartTime: null,
+    TimeSpent: 0
+  };
+}
+
+export function startTask(task: number) {
+  return {
+    type: START_TASK,
+    task
   };
 }
 
@@ -18,13 +31,18 @@ export function clearTasks() {
 export class Task {
   constructor(init?: Partial<Task>) {
     Object.assign(this, init);
+    if (typeof (this.TimeSpent) === 'undefined') {
+      this.TimeSpent = 0;
+    }
   }
 
   Id: string;
   Task: string;
+  Running: boolean;
+  StartTime: Date;
+  TimeSpent: number;
 }
 
-let x = 1;
-function CreateGuid(){
-  return (x++).toString();
+function CreateGuid() {
+  return uuidv4();
 }

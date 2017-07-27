@@ -12,7 +12,8 @@
  */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
-import GlobalShortcutRegister from './globalShortcut';
+import ShortcutRegister from './shortcuts';
+import Server from 'electron-rpc/server';
 
 let mainWindow = null;
 
@@ -27,6 +28,8 @@ if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true')
   const p = path.join(__dirname, '..', 'app', 'node_modules');
   require('module').globalPaths.push(p);
 }
+
+const server = new Server();
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -53,7 +56,6 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
-
 
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
@@ -82,9 +84,12 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  const globalShortcutRegister = new GlobalShortcutRegister(mainWindow);
-  globalShortcutRegister.setupGlobalShortcuts();
-  
   const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu(); 
+  menuBuilder.buildMenu();
+
+  server.configure(mainWindow.webContents);
+
+  const shortcutRegister = new ShortcutRegister(mainWindow, server);
+  shortcutRegister.setupGlobalShortcuts();
+  shortcutRegister.setupLocalShortcuts();
 });
