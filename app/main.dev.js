@@ -12,6 +12,7 @@
  */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+import GlobalShortcutRegister from './globalShortcut';
 
 let mainWindow = null;
 
@@ -81,6 +82,9 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
+  const globalShortcutRegister = new GlobalShortcutRegister(mainWindow);
+  globalShortcutRegister.setupGlobalShortcuts();
+  
   const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  menuBuilder.buildMenu(); 
 });

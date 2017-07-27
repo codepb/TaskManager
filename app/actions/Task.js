@@ -4,7 +4,8 @@ export const CLEAR_TASKS = 'CLEAR_TASKS';
 export function addTask(task: string) {
   return {
     type: ADD_TASK,
-    task: task
+    task,
+    id: CreateGuid()
   };
 }
 
@@ -19,6 +20,11 @@ export class Task {
     Object.assign(this, init);
   }
 
-  KeyBinding: number;
+  Id: string;
   Task: string;
+}
+
+let x = 1;
+function CreateGuid(){
+  return (x++).toString();
 }

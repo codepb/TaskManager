@@ -12,7 +12,7 @@ class TaskList extends Component {
   render() {
     return (
       <ul className={styles.taskList} >
-        { this.props.tasks.map((item) => <li key={item.keyBinding}>{item.keyBinding}: {item.task}</li>) }
+        { this.props.tasks.map((item, i) => <li key={item.id}>{i + 1}: {item.task}</li>) }
       </ul>
     );
   }
