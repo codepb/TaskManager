@@ -1,9 +1,26 @@
 .container {
-  color: #555;
   font-family: 'Segoe UI', 'Calibri', 'sans-serif';
+  vertical-align: bottom;
+  padding: 10px;
+
+}
+.container li {
+  display: grid;
+  grid-template-columns: 20px auto 40px;
 }
 
 .container li.running {
-  color: #282;
-  text-decoration: underline;
+  font-weight: bold;
+}
+
+.container li div.shortcut {
+  grid-column: 1 / 2;
+}
+
+.container li div.task {
+  grid-column: 2 / 3;
+}
+
+.container li div.time {
+  grid-column: 3 / 4;
 }

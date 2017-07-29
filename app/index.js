@@ -5,7 +5,7 @@ import Client from 'electron-rpc/client';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
-import { startTask } from './actions/Task';
+import { startTask, stopTiming } from './actions/Task';
 
 // Initialize rpc communication
 const client = new Client();
@@ -18,6 +18,12 @@ render(
   </AppContainer>,
   document.getElementById('root')
 );
+
+client.on('stopTiming', () => {
+  // global listener for ipc event sent from main process
+  const action = stopTiming();
+  store.dispatch(action);
+});
 
 client.on('taskTriggered', (err, body: number) => {
   // global listener for ipc event sent from main process

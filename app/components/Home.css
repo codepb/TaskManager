@@ -1,14 +1,18 @@
 .container {
   position: absolute;
-  top: 30%;
+  width: 220px;
   left: 10px;
-  text-align: center;
+  height: 300px;
+  text-align: left;
+  display: grid;
+  grid-template-rows: auto 50px;
 }
 
-.container h2 {
-  font-size: 5rem;
+.container TaskList {
+  grid-row: 1 / 2;
 }
 
-.container a {
-  font-size: 1.4rem;
+.container TaskAdder {
+  grid-row: 2 / 3;
 }
+

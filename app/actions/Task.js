@@ -3,6 +3,7 @@ import uuidv4 from 'uuid/v4';
 export const ADD_TASK = 'ADD_TASK';
 export const START_TASK = 'START_TASK';
 export const CLEAR_TASKS = 'CLEAR_TASKS';
+export const STOP_TIMING = 'STOP_TIMING';
 
 export function addTask(task: string) {
   return {
@@ -19,6 +20,12 @@ export function startTask(task: number) {
   return {
     type: START_TASK,
     task
+  };
+}
+
+export function stopTiming() {
+  return {
+    type: STOP_TIMING
   };
 }
 

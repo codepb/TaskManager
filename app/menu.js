@@ -1,11 +1,13 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+import { app, Menu, shell, BrowserWindow, Tray } from 'electron';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
+  tray: Tray;
 
-  constructor(mainWindow: BrowserWindow) {
+  constructor(mainWindow: BrowserWindow, tray: Tray) {
     this.mainWindow = mainWindow;
+    this.tray = tray;
   }
 
   buildMenu() {
@@ -153,5 +155,26 @@ export default class MenuBuilder {
     }];
 
     return templateDefault;
+  }
+
+  buildTrayMenu(){
+    const contextMenu = Menu.buildFromTemplate([
+      {
+        label: 'Close',
+        click: () => {
+          this.mainWindow.close();
+        }
+      },
+      {
+        label: 'Documentation',
+        click() {
+          shell.openExternal('https://github.com/codepb/TaskManager#Readme');
+        }
+      }
+    ]);
+
+    this.tray.setContextMenu(contextMenu);
+
+    return contextMenu;
   }
 }

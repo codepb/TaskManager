@@ -184,6 +184,7 @@
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
     "electron-localshortcut": "^2.0.2",
+    "electron-positioner": "^3.0.0",
     "electron-rpc": "^2.0.1",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",

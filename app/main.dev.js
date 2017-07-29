@@ -39,6 +39,7 @@ const createTray = () => {
   tray.on('click', () => {
     toggleWindow();
   });
+  tray.setToolTip('Time Manager');
 };
 
 const toggleWindow = () => {
@@ -86,14 +87,22 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+  createTray();
+
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
-    skipTaskbar: true
+    width: 240,
+    height: 300,
+    skipTaskbar: true,
+    frame: false,
+    resizable: false,
+    transparent: true,
+    webPreferences: {
+      experimentalFeatures: true
+    }
   });
 
-  createTray();
+
 
   mainWindow.on('blur', () => {
     if (!mainWindow.webContents.isDevToolsOpened()) {
@@ -102,26 +111,29 @@ app.on('ready', async () => {
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
-
+  mainWindow.hide();
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
-    showWindow();
   });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  const menuBuilder = new MenuBuilder(mainWindow, tray);
+  menuBuilder.buildTrayMenu();
 
   server.configure(mainWindow.webContents);
 
+  mainWindow.on('focus', () => {
+    server.send('applicationFocussed');
+  });
+
   const shortcutRegister = new ShortcutRegister(mainWindow, server);
-  shortcutRegister.setupGlobalShortcuts();
+  shortcutRegister.setupGlobalShortcuts(toggleWindow);
   shortcutRegister.setupLocalShortcuts();
 });

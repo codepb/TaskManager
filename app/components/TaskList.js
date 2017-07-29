@@ -12,7 +12,8 @@ class TaskList extends Component {
   render() {
     return (
       <ul className={styles.container} >
-        { this.props.tasks.map((item, i) => <li key={item.id} className={item.Running ? styles.running : ''}>{i + 1}: {item.task} {item.TimeSpent}</li>) }
+        <li><div className="shortcut">0:&nbsp;</div><div className="task">Stop Timing</div></li>
+        { this.props.tasks.map((item, i) => <li key={item.id} className={item.Running ? styles.running : ''}><div className="shortcut">{i + 1}:&nbsp;</div><div className="task">{item.task}</div><div className="time">{item.TimeSpent.toFixed(0)}</div></li>) }
       </ul>
     );
   }

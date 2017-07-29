@@ -12,11 +12,8 @@ export default class ShortcutRegister {
     this.server = server;
   }
 
-  setupGlobalShortcuts() {
-    const ret = globalShortcut.register('CommandOrControl+Shift+0', () => {
-      this.mainWindow.show();
-      this.mainWindow.focus();
-    });
+  setupGlobalShortcuts(func: Function) {
+    const ret = globalShortcut.register('CommandOrControl+Shift+0', func);
 
     if (!ret) {
       console.log('registration failed');
@@ -32,6 +29,9 @@ export default class ShortcutRegister {
   }
 
   setupLocalShortcuts() {
+    electronLocalshortcut.register('CommandOrControl+0', () => {
+      this.server.send('stopTiming', 0);
+    });
     electronLocalshortcut.register('CommandOrControl+1', () => {
       this.server.send('taskTriggered', 1);
     });
