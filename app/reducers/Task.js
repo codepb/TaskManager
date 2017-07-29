@@ -31,7 +31,11 @@ export default function task(state: Task[] = [], action: allowedActionTypes) {
 
 function startTask(state: Task[], taskNumber: number): Task[] {
   const taskToUpdate = state[taskNumber - 1];
+
   if (typeof (taskToUpdate) !== 'undefined') {
+    if (taskToUpdate.Running) {
+      return state;
+    }
     let newState = [...state];
     const now = new Date();
     newState = newState.map(x => {

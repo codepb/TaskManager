@@ -1,0 +1,9 @@
+.container {
+  color: #555;
+  font-family: 'Segoe UI', 'Calibri', 'sans-serif';
+}
+
+.container li.running {
+  color: #282;
+  text-decoration: underline;
+}

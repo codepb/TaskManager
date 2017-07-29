@@ -26,8 +26,8 @@ class TaskAdder extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input type="text" className={styles.taskInput} placeholder="Input Task" value={this.state.value} onChange={this.handleChange} />
+      <form onSubmit={this.handleSubmit} className={styles.taskInput}>
+        <input type="text" placeholder="Input Task" value={this.state.value} onChange={this.handleChange} />
       </form>
     );
   }
