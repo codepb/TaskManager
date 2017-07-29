@@ -10,10 +10,12 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Tray } from 'electron';
+import Server from 'electron-rpc/server';
+import path from 'path';
 import MenuBuilder from './menu';
 import ShortcutRegister from './shortcuts';
-import Server from 'electron-rpc/server';
+
 
 let mainWindow = null;
 
@@ -24,12 +26,34 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
   require('electron-debug')();
-  const path = require('path');
   const p = path.join(__dirname, '..', 'app', 'node_modules');
   require('module').globalPaths.push(p);
 }
 
 const server = new Server();
+
+let tray = null;
+
+const createTray = () => {
+  tray = new Tray(path.join(__dirname, '..', 'resources', 'icon.png'));
+  tray.on('click', () => {
+    toggleWindow();
+  });
+};
+
+const toggleWindow = () => {
+  if (mainWindow.isVisible()) {
+    mainWindow.hide();
+  } else {
+    showWindow();
+  }
+}
+
+const showWindow = () => {
+  mainWindow.show();
+  mainWindow.focus();
+}
+
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -65,7 +89,16 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
+    skipTaskbar: true
+  });
+
+  createTray();
+
+  mainWindow.on('blur', () => {
+    if (!mainWindow.webContents.isDevToolsOpened()) {
+      mainWindow.hide();
+    }
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -76,8 +109,7 @@ app.on('ready', async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
-    mainWindow.show();
-    mainWindow.focus();
+    showWindow();
   });
 
   mainWindow.on('closed', () => {
