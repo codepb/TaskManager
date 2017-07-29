@@ -30,7 +30,7 @@ export default class MenuBuilder {
   }
 
   setupDevelopmentEnvironment() {
-    this.mainWindow.openDevTools();
+    this.mainWindow.webContents.openDevTools('undocked');
     this.mainWindow.webContents.on('context-menu', (e, props) => {
       const { x, y } = props;
 
@@ -157,7 +157,7 @@ export default class MenuBuilder {
     return templateDefault;
   }
 
-  buildTrayMenu(){
+  buildTrayMenu() {
     const contextMenu = Menu.buildFromTemplate([
       {
         label: 'Close',

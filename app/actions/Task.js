@@ -48,6 +48,15 @@ export class Task {
   Running: boolean;
   StartTime: Date;
   TimeSpent: number;
+
+  currentTimeSpent() {
+    let timeToAdd = 0;
+    if (this.Running) {
+      const now = new Date();
+      timeToAdd = (now - this.StartTime) / 1000;
+    }
+    return this.TimeSpent + timeToAdd;
+  }
 }
 
 function CreateGuid() {

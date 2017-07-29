@@ -126,6 +126,9 @@ app.on('ready', async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow, tray);
   menuBuilder.buildTrayMenu();
+  if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+    menuBuilder.setupDevelopmentEnvironment();
+  }
 
   server.configure(mainWindow.webContents);
 
