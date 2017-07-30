@@ -6,7 +6,7 @@ import storage from 'electron-json-storage';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
-import { startTask, stopTiming, Task } from './actions/Task';
+import { startTask, stopTiming, clearTasks, Task } from './actions/Task';
 
 // Initialize rpc communication
 const client = new Client();
@@ -43,6 +43,11 @@ storage.get('tasks', (error, tasks) => {
     client.on('taskTriggered', (err, body: number) => {
       // global listener for ipc event sent from main process
       const action = startTask(body);
+      store.dispatch(action);
+    });
+
+    client.on('clearTasks', () => {
+      const action = clearTasks();
       store.dispatch(action);
     });
 

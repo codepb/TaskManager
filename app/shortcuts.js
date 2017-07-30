@@ -1,5 +1,5 @@
 // @flow
-import { app, BrowserWindow, globalShortcut } from 'electron';
+import { app, BrowserWindow, globalShortcut, dialog } from 'electron';
 import electronLocalshortcut from 'electron-localshortcut';
 import Server from 'electron-rpc/server';
 
@@ -58,6 +58,17 @@ export default class ShortcutRegister {
     });
     electronLocalshortcut.register('CommandOrControl+9', () => {
       this.server.send('taskTriggered', 9);
+    });
+    electronLocalshortcut.register('CommandOrControl+Shift+F4', () => {
+      const choice = dialog.showMessageBox(this.mainWindow, {
+        type: 'question',
+        buttons: ['Yes', 'Cancel'],
+        title: 'Confirm',
+        message: 'Are you sure you want to clear all tasks?'
+      });
+      if (choice === 0) {
+        this.server.send('clearTasks');
+      }
     });
   }
 }
