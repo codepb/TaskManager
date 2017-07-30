@@ -6,6 +6,7 @@ import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 import * as taskActions from '../actions/Task';
 import type { taskStateType } from '../reducers/Task';
+import taskStore from '../middleware/taskStore';
 
 const history = createHashHistory();
 
@@ -16,6 +17,7 @@ const configureStore = (initialState?: taskStateType) => {
 
   // Thunk Middleware
   middleware.push(thunk);
+  middleware.push(taskStore);
 
   // Logging Middleware
   const logger = createLogger({

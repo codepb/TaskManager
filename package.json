@@ -1,6 +1,6 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
+  "name": "time-manager",
+  "productName": "TimeManager",
   "version": "0.12.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
@@ -183,6 +183,7 @@
   "dependencies": {
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
+    "electron-json-storage": "^3.0.7",
     "electron-localshortcut": "^2.0.2",
     "electron-positioner": "^3.0.0",
     "electron-rpc": "^2.0.1",
