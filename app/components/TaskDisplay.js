@@ -37,6 +37,6 @@ export default class TaskDisplay extends Component {
   }
 
   render() {
-    return <li key={this.props.task.id} className={this.props.task.Running ? styles.running : ''}><div className="shortcut">{this.props.shortcut}:&nbsp;</div><div className="task">{this.props.task.task}</div><div className="time">{this.state.timeSpent.toFixed(0)}</div></li>;
+    return <li key={this.props.task.Id} className={this.props.task.Running ? styles.running : ''}><div className="shortcut">{this.props.shortcut}:&nbsp;</div><div className="task">{this.props.task.Task}</div><div className="time">{this.state.timeSpent.toFixed(0)}</div></li>;
   }
 }

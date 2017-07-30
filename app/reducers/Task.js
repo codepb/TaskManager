@@ -2,7 +2,7 @@
 import { ADD_TASK, CLEAR_TASKS, START_TASK, STOP_TIMING, Task } from '../actions/Task';
 
 export type taskStateType = {
-  +tasks: string[]
+  +tasks: Task[]
 };
 
 type actionType = {
@@ -22,7 +22,7 @@ export default function task(state: Task[] = [], action: allowedActionTypes) {
       if (state.length === 9) {
         return state;
       }
-      return [...state, new Task({ id: action.id, task: action.task })];
+      return [...state, action.task];
     case START_TASK:
       return startTask(state, action.task);
     case STOP_TIMING:

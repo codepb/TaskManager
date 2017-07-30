@@ -8,11 +8,13 @@ export const STOP_TIMING = 'STOP_TIMING';
 export function addTask(task: string) {
   return {
     type: ADD_TASK,
-    task,
-    id: CreateGuid(),
-    Running: false,
-    StartTime: null,
-    TimeSpent: 0
+    task: new Task({
+      Task: task,
+      Id: CreateGuid(),
+      Running: false,
+      StartTime: null,
+      TimeSpent: 0
+    })
   };
 }
 
