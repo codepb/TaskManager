@@ -51,6 +51,15 @@ storage.get('tasks', (error, tasks) => {
       store.dispatch(action);
     });
 
+    client.on('toggleTheme', () => {
+      const body = document.body;
+      if (body.classList.contains('light')) {
+        body.classList.remove('light');
+      } else {
+        body.classList.add('light');
+      }
+    });
+
     if (module.hot) {
       module.hot.accept('./containers/Root', () => {
         const NextRoot = require('./containers/Root'); // eslint-disable-line global-require

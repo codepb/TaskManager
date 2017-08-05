@@ -1,6 +1,6 @@
 {
   "name": "time_manager",
-  "productName": "TimeManager",
+  "productName": "time_manager",
   "version": "1.0.0",
   "description": "Application for tracking time spent on various tasks.",
   "main": "./main.prod.js",

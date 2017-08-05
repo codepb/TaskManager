@@ -4,10 +4,15 @@ body {
   position: relative;
   color: #bbb;
   height: 100vh;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0,0,0,0.95);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
   overflow-y: hidden;
+}
+
+body.light {
+  color: #222 !important;
+  background-color: rgba(255,255,255,0.95);
 }
 
 p {
@@ -23,4 +28,33 @@ ul {
 
 li {
   list-style: none;
+}
+
+input[type="text"] {
+  padding: 5px 10px;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  border-color: #bbb;
+  margin-bottom: 10px;
+}
+
+body.light input[type="text"] {
+  border-color: #222;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  color: #bbb;
+}
+
+input[type="text"]::-webkit-input-placeholder {
+  color: #bbb;
+}
+
+body.light input[type="text"]:focus {
+  color: #222;
+}
+
+body.light input[type="text"]::-webkit-input-placeholder {
+  color: #222;
 }

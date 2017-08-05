@@ -70,5 +70,8 @@ export default class ShortcutRegister {
         this.server.send('clearTasks');
       }
     });
+    electronLocalshortcut.register('CommandOrControl+T', () => {
+      this.server.send('toggleTheme');
+    });
   }
 }
