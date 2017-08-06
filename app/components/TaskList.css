@@ -6,7 +6,7 @@
 }
 .container li {
   display: grid;
-  grid-template-columns: 20px auto 40px;
+  grid-template-columns: 20px 120px 50px;
 }
 
 .container li.running {
@@ -19,6 +19,9 @@
 
 .container li div.task {
   grid-column: 2 / 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 5px;
 }
 
 .container li div.time {
