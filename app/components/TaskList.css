@@ -2,9 +2,20 @@
   font-family: 'Segoe UI', 'Calibri', 'sans-serif';
   vertical-align: bottom;
   padding: 10px;
-
 }
+
+.container.smallMode {
+  padding: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
 .container li {
+  display: grid;
+  grid-template-columns: 20px 120px 50px;
+}
+
+.container.smallMode li {
   display: grid;
   grid-template-columns: 20px 120px 50px;
 }

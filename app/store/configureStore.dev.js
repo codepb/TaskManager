@@ -6,6 +6,7 @@ import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 import * as taskActions from '../actions/Task';
 import type { taskStateType } from '../reducers/Task';
+import * as smallModeActions from '../actions/smallMode';
 import taskStore from '../middleware/taskStore';
 
 const history = createHashHistory();
@@ -33,7 +34,8 @@ const configureStore = (initialState?: taskStateType) => {
   // Redux DevTools Configuration
   const actionCreators = {
     ...routerActions,
-    ...taskActions
+    ...taskActions,
+    ...smallModeActions
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */

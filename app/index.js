@@ -7,6 +7,7 @@ import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
 import { startTask, stopTiming, clearTasks, Task } from './actions/Task';
+import { smallModeToggle } from './actions/smallMode';
 
 // Initialize rpc communication
 const client = new Client();
@@ -15,7 +16,7 @@ storage.get('tasks', (error, tasks) => {
   if (error) {
     console.log(error);
   } else {
-    const initialState = { tasks };
+    const initialState = { tasks, smallMode: false };
     if (!Array.isArray(initialState.tasks)) {
       initialState.tasks = [];
     }
@@ -58,6 +59,17 @@ storage.get('tasks', (error, tasks) => {
       } else {
         body.classList.add('light');
       }
+    });
+
+    client.on('smallMode', (err, on: boolean) => {
+      const body = document.body;
+      const action = smallModeToggle(on);
+      if (on) {
+        body.classList.add('small');
+      } else {
+        body.classList.remove('small');
+      }
+      store.dispatch(action);
     });
 
     if (module.hot) {

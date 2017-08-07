@@ -2,7 +2,8 @@
 import { ADD_TASK, CLEAR_TASKS, START_TASK, STOP_TIMING, Task } from '../actions/Task';
 
 export type taskStateType = {
-  +tasks: Task[]
+  +tasks: Task[],
+  smallMode: boolean
 };
 
 type actionType = {

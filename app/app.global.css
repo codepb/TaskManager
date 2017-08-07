@@ -35,11 +35,17 @@ input[type="text"] {
   background-color: rgba(0,0,0,0);
   border: none;
   border-color: #bbb;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
   margin-bottom: 10px;
 }
 
 body.light input[type="text"] {
   border-color: #222;
+}
+
+body.small input[type="text"] {
+  background-color: transparent;
 }
 
 input[type="text"]:focus {

@@ -8,7 +8,8 @@ export default class TaskDisplay extends Component {
   interval: number;
   props: {
     task: Task,
-    shortcut: number
+    shortcut: number,
+    smallMode: boolean
   }
   constructor(props) {
     super(props);
@@ -57,7 +58,7 @@ export default class TaskDisplay extends Component {
 
   render() {
     return (
-      <li key={this.props.task.Id} className={this.props.task.Running ? styles.running : ''}>
+      <li key={this.props.task.Id} className={this.props.task.Running && !this.props.smallMode ? styles.running : ''}>
         <div className={styles.shortcut}>{this.props.shortcut}:&nbsp;</div>
         <div className={styles.task}>{this.props.task.Task}</div>
         <div className={styles.time}>{(this.state.timeSpent)}</div>

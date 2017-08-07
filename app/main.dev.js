@@ -13,10 +13,12 @@
 import { app, BrowserWindow, Tray, dialog } from 'electron';
 import Server from 'electron-rpc/server';
 import path from 'path';
+import Positioner from 'electron-positioner';
 import MenuBuilder from './menu';
 import ShortcutRegister from './shortcuts';
 
 let mainWindow = null;
+let positioner = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -43,17 +45,28 @@ const createTray = () => {
 
 const toggleWindow = () => {
   if (mainWindow.isVisible()) {
-    mainWindow.hide();
+    if (mainWindow.getSize()[1] === 300) {
+      resizeWindow();
+    } else {
+      mainWindow.hide();
+    }
   } else {
     showWindow();
   }
-}
+};
 
+const resizeWindow = () => {
+  mainWindow.setSize(240, 30);
+  positioner.move('bottomRight');
+  server.send('smallMode', true);
+};
 const showWindow = () => {
+  mainWindow.setSize(240, 300);
+  positioner.move('bottomRight');
   mainWindow.show();
   mainWindow.focus();
-}
-
+  server.send('smallMode', false);
+};
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -96,6 +109,9 @@ app.on('ready', () => {
       experimentalFeatures: true
     }
   });
+
+  positioner = new Positioner(mainWindow);
+  positioner.move('bottomRight');
 
   mainWindow.on('blur', () => {
     if (!mainWindow.webContents.isDevToolsOpened()) {
