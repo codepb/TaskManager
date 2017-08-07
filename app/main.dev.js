@@ -57,11 +57,13 @@ const toggleWindow = () => {
 
 const resizeWindow = () => {
   mainWindow.setSize(240, 30);
+  mainWindow.setAlwaysOnTop(true);
   positioner.move('bottomRight');
   server.send('smallMode', true);
 };
 const showWindow = () => {
   mainWindow.setSize(240, 300);
+  mainWindow.setAlwaysOnTop(false);
   positioner.move('bottomRight');
   mainWindow.show();
   mainWindow.focus();
@@ -114,7 +116,7 @@ app.on('ready', () => {
   positioner.move('bottomRight');
 
   mainWindow.on('blur', () => {
-    if (!mainWindow.webContents.isDevToolsOpened()) {
+    if (!mainWindow.webContents.isDevToolsOpened() && mainWindow.getSize()[1] === 300) {
       mainWindow.hide();
     }
   });

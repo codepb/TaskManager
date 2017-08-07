@@ -21,7 +21,7 @@ class TaskList extends Component {
     if (this.props.smallMode) {
       return (<ul className={`${styles.container} ${styles.smallMode}`}>{runningTask ?
         <TaskDisplay shortcut={indexRunningTask + 1} task={runningTask} smallMode={this.props.smallMode} />
-        : <li>No running tasks</li>}</ul>);
+        : <li><div className={styles.task}>No running tasks</div></li>}</ul>);
     } else {
       return (
         <ul className={styles.container} >
